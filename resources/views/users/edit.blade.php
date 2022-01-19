@@ -66,7 +66,7 @@
                 </div>
                 <div class=" ">
                     @php
-                    $modals = ['users', 'products'];
+                    $modals = ['users', 'categories', 'products'];
                     $maps = ['create', 'read', 'update', 'delete'];
                     @endphp
                     <div class="card-header p-0 border-bottom-0">

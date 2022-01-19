@@ -248,9 +248,21 @@ return [
         ],
         [
             'text'        => 'Users',
-            'url'         => '/users',
+            'url'         => 'users',
             'icon'        => 'nav-icon fas fa-users',
             'can'         => ['users-read'],
+        ],
+        [
+            'text'        => 'Catogries',
+            'url'         => 'categories',
+            'icon'        => 'nav-icon fas fa-list-alt',
+            'can'         => ['categories-read'],
+        ],
+        [
+            'text'        => 'Product',
+            'url'         => 'products',
+            'icon'        => 'nav-icon fas fa-circle',
+            'can'         => ['products-read'],
         ],
 
         ['header' => 'account_settings'],

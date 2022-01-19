@@ -15,13 +15,13 @@ class Index extends Component
 
     public $user_id;
     public $user_name;
-    public $user;
+    // public $user;
 
     public function render()
     {
         $users = User::where('first_name', 'LIKE', '%' . $this->search . '%')
             ->OrWhere('last_name', 'LIKE', '%' . $this->search . '%')
-            // ->latest()
+            ->latest()
             ->paginate(10);
 
         return view('livewire.user.index', [
@@ -32,7 +32,7 @@ class Index extends Component
     public function deleteUser()
     {
         $user = User::findOrFail($this->user_id);
-        // dd(File::exists('storage/' . $user->image));
+
         if (File::exists('storage/' . $user->image)) {
             File::delete('storage/' . $user->image);
         }

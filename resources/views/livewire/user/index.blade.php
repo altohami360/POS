@@ -11,11 +11,9 @@
         </div>
         <div class="card-tools">
         <button class="btn btn-primary"><i class="fas fa-search"> </i> Search</button>
-            @can('users-create')
             <a href="{{ route('users.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus"> </i> Add User
             </a>
-            @endcan
         </div>
         <div class="col-md-4">
         </div>
@@ -77,26 +75,16 @@
                         </td>
                         <td class="">
                             <div class="btn-group">
-    
-                                @can('users-update')
                                     <a href="{{ route('users.edit', $user) }}" class="btn btn-primary"><i
                                         class="fas fa-pencil-alt"></i></a>
-                                @else
-                                    <button type="button" class="btn btn-primary" disabled><i
-                                        class="fas fa-pencil-alt"></i></button>
-                                @endcan
-                                @can('users-delete')
                                     <button type="button" class="btn btn-danger btndelete" wire:click.prevent="setAtt('{{ $user->id }}', '{{$user->first_name}}')" data-toggle="modal" data-target="#delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
-                                @else
-                                    <button type="button" class="btn btn-danger" disabled><i class="fas fa-trash"></i></button>
-                                @endcan
                             </div>
                         </td>
                     </tr>
                     @empty
-                        <tr><h3>NO Data</h3></tr>
+                    <h3>NO Data</h3> 
                     @endforelse
                 </tbody>
             </table>

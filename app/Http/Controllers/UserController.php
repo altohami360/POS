@@ -18,8 +18,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        Gate::authorize('users-read');
-
         $users = User::all();
         return view('users.index', compact('users'));
     }
@@ -31,11 +29,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        // if (!Gate::allows('users-create')) {
-        //     abort(403);
-        // }
-        Gate::authorize('users-create');
-
         return view('users.create');
     }
 
@@ -47,16 +40,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('users-create');
 
-        // dd($request->permissions);
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|string|unique:users',
             'password' => 'required|min:8|confirmed',
-            'image' => 'image|mimes:jpg,png,jpeg|max:4096',
+            // 'image' => 'mimes:jpg,png,jpeg|max:4096',
         ]);
+
+
 
         $request_data = $request->except(['password', 'password_confirmation', 'active', 'permissions', 'image']);
         $request_data['active'] = $request->active ? true : false;
@@ -65,16 +58,15 @@ class UserController extends Controller
 
         if ($request->hasFile('image')) {
             $image = $request->file('image')->getClientOriginalName();
-            $image = $request->file('image')->store('images', 'public');
+            $image = $request->file('image')->store('images/users', 'public');
             $request_data['image'] =  $image;
         }
 
-        // dd($request_data);
 
         $user = User::create($request_data);
 
         $user->attachRole('admin');
-        $request->permissions ? $user->syncPermissions($request->permissions) : '';
+        $user->syncPermissions($request->permissions);
 
         return redirect()->route('users.index')->with('message', 'Add User Successfully');
     }
@@ -98,8 +90,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        Gate::authorize('users-delete');
-
         return view('users.edit', compact('user'));
     }
 
@@ -112,9 +102,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (!Gate::allows('users-update')) {
-            abort(403);
-        }
+
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -125,8 +113,9 @@ class UserController extends Controller
         $request_data['active'] = $request->active ? true : false;
 
         $user->update($request_data);
-
         $user->syncPermissions($request->permissions);
+
+
 
         return redirect()->route('users.index')->with('message', 'Update User Successfully');
     }
@@ -139,8 +128,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (!Gate::allows('users-delete')) {
-            abort(403);
-        }
+        //
     }
 }

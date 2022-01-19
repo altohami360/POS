@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImageColumnToUsersTable extends Migration
+class CreateCatogriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddImageColumnToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('image')->default('images/users/default.png')->after('password');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->boolean('active')->default(true);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddImageColumnToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            Schema::dropColumns('image');
-        });
+        Schema::dropIfExists('catogries');
     }
 }
