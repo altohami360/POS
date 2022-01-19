@@ -4,15 +4,7 @@
 
 @section('content_header')
 <h1>Products</h1>
-{{-- @if ($message = Session::get('message')) --}}
-  <div class="alert alert-success alert-block">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <strong>mohammed
 
-      
-    </strong>
-  </div>
-  {{-- @endif --}}
 @stop
 
 

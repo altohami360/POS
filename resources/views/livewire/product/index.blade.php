@@ -1,10 +1,10 @@
 <div>
-    {{-- @if ($message = Session::get('message'))
+    @if ($message = Session::get('message'))
     <div class="alert alert-success alert-block">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <strong>{{ $message }}</strong>
     </div>
-    @endif --}}
+    @endif
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
