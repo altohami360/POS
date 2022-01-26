@@ -40,11 +40,11 @@
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Purchase Price</label>
-            <input type="number" class="form-control" min="1" value="{{ old('purchase_price') }}" name="purchase_price">
+            <input type="number" step="0.01" class="form-control" min="1" value="{{ old('purchase_price') }}" name="purchase_price">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Sale Price</label>
-            <input type="number" class="form-control" min="1" value="{{ old('sale_price') }}" name="sale_price">
+            <input type="number" step="0.01" class="form-control" min="1" value="{{ old('sale_price') }}" name="sale_price">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Stock</label>

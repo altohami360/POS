@@ -10,7 +10,7 @@
 
 @section('content')
 
-@livewire('product.index')
+@livewire('client.index')
 
 @stop
 

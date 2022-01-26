@@ -5,36 +5,30 @@
         <strong>{{ $message }}</strong>
     </div>
     @endif
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="search" wire:model="search" class="form-control" placeholder="Search.." />
-            </div>
-        
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <select wire:model.lazy="category_id" class="form-control select2 select2-hidden-accessible">
-                    <option value="" selected>Category..</option>
-                    @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="card-tools">
-            <button class="btn btn-primary"><i class="fas fa-search"> </i> Search</button>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus"> </i> Add Product
-            </a>
-        </div>
-        <div class="col-md-4">
-        </div>
-    </div>
-    <br>
     <div class="card card-primary card-outline">
-        
+        <div class="card-header">
+            <div class="card-tools">
+                <a href="{{ route('products.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"> </i> Add Product
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="search" wire:model="search" class="form-control" placeholder="Search">
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select wire:model.lazy="category_id" class="form-control select2 select2-hidden-accessible">
+                            <option value="" selected>Category..</option>
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card-body p-0">
             <table class="table table-striped projects">
                 <thead>
@@ -126,7 +120,7 @@
                         </td>
                     </tr>
                     @empty
-                        <tr><td><h2>NO Data</h2></td></tr>
+                        <tr><td>NO Data</td></tr>
                     @endforelse
                 </tbody>
             </table>

@@ -250,19 +250,21 @@ return [
             'text'        => 'Users',
             'url'         => 'users',
             'icon'        => 'nav-icon fas fa-users',
-            'can'         => ['users-read'],
         ],
         [
             'text'        => 'Catogries',
             'url'         => 'categories',
             'icon'        => 'nav-icon fas fa-list-alt',
-            'can'         => ['categories-read'],
         ],
         [
-            'text'        => 'Product',
+            'text'        => 'Products',
             'url'         => 'products',
-            'icon'        => 'nav-icon fas fa-circle',
-            'can'         => ['products-read'],
+            'icon'        => 'nav-icon fas fa-list-alt',
+        ],
+        [
+            'text'        => 'clients',
+            'url'         => 'clients',
+            'icon'        => 'nav-icon fas fa-list-alt',
         ],
 
         ['header' => 'account_settings'],

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CateogryController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['register' => false]);
 
-Route::get('/', function () {
-  return redirect('login');
-});
-
-
-
+Route::get('/', fn () => redirect('login'));
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -36,4 +33,8 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('categories', CateogryController::class)->only('index');
 
   Route::resource('products', ProductController::class)->except('show');
+
+  Route::resource('clients', ClientController::class)->except('show');
+
+  Route::resource('clients.orders', OrderController::class)->except('show');
 });

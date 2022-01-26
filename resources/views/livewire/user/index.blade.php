@@ -5,7 +5,7 @@
         <strong>{{ $message }}</strong>
     </div>
     @endif
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-6">
             <input type="search" wire:model="search" class="form-control" placeholder="Search" />
         </div>
@@ -17,12 +17,20 @@
         </div>
         <div class="col-md-4">
         </div>
-    </div>
-    <br>
+    </div> --}}
     <div class="card card-primary card-outline">
-        {{-- <div class="card-header">
-            
-        </div> --}}
+        <div class="card-header">
+            <div class="card-tools">
+                <a href="{{ route('users.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"> </i> Add User
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="search" wire:model="search" class="form-control" placeholder="Search">
+                </div>
+            </div>
+        </div>
         <div class="card-body p-0">
             <table class="table table-striped projects">
                 <thead>
