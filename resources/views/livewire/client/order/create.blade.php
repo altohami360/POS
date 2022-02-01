@@ -6,63 +6,70 @@
         <div class="card-body">
             <div id="accordion">
                 @foreach ($categories as $index=>$category)
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h4 class="card-title w-100">
-                            <a class="d-block w-100" data-toggle="collapse" href="#col{{ $index }}" aria-expanded="false">
-                                {{$category->name}}
-                            </a>
-                        </h4>
-                    </div>
-                    <div wire:ignore.self id="col{{ $index }}" class="collapse" data-parent="#accordion" style="">
-                        <div class="card-body p-0">
-                            <table class="table table-striped projects">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Price
-                                        </th>
-                                        <th>
-                                            Stock
-                                        </th>
-                                        <th>
-    
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($category->products as $product)
-                                    <tr>
-                                        <td>
-                                            {{ $product->name }}
-                                        </td>
-                                        <td>
-                                            ${{ $product->sale_price }}
-                                        </td>
-                                        <td>
-                                            {{ $product->stock }}
-                                        </td>
-                                        <td>
-                                            <a onclick="event.preventDefault()"
-                                                wire:click="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})"
-                                                class="btn btn-success">
-                                                <i class="fas fa-plus"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td>NO Data</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title w-100">
+                                <a class="d-block w-100" data-toggle="collapse" href="#col{{ $index }}" aria-expanded="false">
+                                    {{$category->name}}
+                                </a>
+                            </h4>
+                        </div>
+                        <div wire:ignore.self id="col{{ $index }}" class="collapse" data-parent="#accordion" style="">
+                            <div class="card-body p-0">
+                                <table class="table table-striped projects">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Price
+                                            </th>
+                                            <th>
+                                                Stock
+                                            </th>
+                                            <th>
+        
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($category->products as $product)
+                                        <tr>
+                                            <td>
+                                                {{ $product->name }}
+                                            </td>
+                                            <td>
+                                                ${{ $product->sale_price }}
+                                            </td>
+                                            <td>
+                                                {{ $product->stock > 0 ? $product->stock : 'Out of stock' }}
+                                            </td>
+                                            <td>
+                                            @if ($product->stock > 0)
+                                                <a onclick="event.preventDefault()" wire:click="store({{$product->id}},'{{$product->name}}',{{$product->sale_price}})"
+                                                    class="btn btn-success">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            @else
+                                                {{-- <a onclick="event.preventDefault()"
+                                                    class="btn btn-success disabled">
+                                                    <i class="fas fa-plus"></i>
+                                                </a> --}}
+                                            @endif
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td>NO Data</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>

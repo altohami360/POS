@@ -1,9 +1,12 @@
 <div>
     @if ($message = Session::get('message'))
-    <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
-    </div>
+        <script>
+            toastr.options = {
+                "closeButton" : true,
+                "progressBar" : true
+            }
+            toastr.success("{{ session('message') }}");
+        </script>
     @endif
     <div class="row">
         <div class="col-md-8">

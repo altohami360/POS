@@ -18,8 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        return view('users.index');
     }
 
     /**
@@ -29,7 +28,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $modals = ['users', 'categories', 'products', 'clients', 'orders'];
+        $maps = ['create', 'read', 'update', 'delete'];
+
+        return view('users.create', compact('modals', 'maps'));
     }
 
     /**
@@ -40,7 +42,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -49,12 +50,9 @@ class UserController extends Controller
             // 'image' => 'mimes:jpg,png,jpeg|max:4096',
         ]);
 
-
-
         $request_data = $request->except(['password', 'password_confirmation', 'active', 'permissions', 'image']);
         $request_data['active'] = $request->active ? true : false;
         $request_data['password'] = Hash::make($request->password);
-
 
         if ($request->hasFile('image')) {
             $image = $request->file('image')->getClientOriginalName();
@@ -62,12 +60,12 @@ class UserController extends Controller
             $request_data['image'] =  $image;
         }
 
-
         $user = User::create($request_data);
 
         $user->attachRole('admin');
         $user->syncPermissions($request->permissions);
 
+        // toaster()->success('Have fun storming the castle!', 'Miracle Max Says');
         return redirect()->route('users.index')->with('message', 'Add User Successfully');
     }
 
@@ -90,7 +88,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $modals = ['users', 'categories', 'products', 'clients', 'orders'];
+        $maps = ['create', 'read', 'update', 'delete'];
+
+        return view('users.edit', compact('user', 'modals', 'maps'));
     }
 
     /**

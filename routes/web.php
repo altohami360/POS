@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 
 Route::get('/', fn () => redirect('login'));
-
+Route::view('/modals', 'modals');
 Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -37,4 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('clients', ClientController::class)->except('show');
 
   Route::resource('clients.orders', OrderController::class)->except('show');
+
+  Route::resource('orders', OrderController::class)->except('show');
 });

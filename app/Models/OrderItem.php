@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class OrderItem extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    protected $casts = [
-        'phone' => 'array',
-    ];
-
-
-    public function orders() 
+    public function product()
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(Product::class);
     }
 }

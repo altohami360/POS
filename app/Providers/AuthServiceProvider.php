@@ -41,5 +41,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('products-read', fn () => Auth::user()->hasPermission('products-read'));
         Gate::define('products-update', fn () => Auth::user()->hasPermission('products-update'));
         Gate::define('products-delete', fn () => Auth::user()->hasPermission('products-delete'));
+
+        Gate::define('clients-create', fn () => Auth::user()->hasPermission('clients-create'));
+        Gate::define('clients-read', fn () => Auth::user()->hasPermission('clients-read'));
+        Gate::define('clients-update', fn () => Auth::user()->hasPermission('clients-update'));
+        Gate::define('clients-delete', fn () => Auth::user()->hasPermission('clients-delete'));
+
+        Gate::define('orders-create', fn () => Auth::user()->hasPermission('orders-create'));
+        Gate::define('orders-read', fn () => Auth::user()->hasPermission('orders-read'));
+        Gate::define('orders-update', fn () => Auth::user()->hasPermission('orders-update'));
+        Gate::define('orders-delete', fn () => Auth::user()->hasPermission('orders-delete'));
     }
 }

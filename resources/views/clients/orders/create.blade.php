@@ -9,13 +9,13 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
 
     @livewire('client.order.create', ['client' => $client])
 
   </div>
   
-  <div class="col-md-6">
+  <div class="col-md-4">
 
    @livewire('client.order.order-products', ['client' => $client])
 

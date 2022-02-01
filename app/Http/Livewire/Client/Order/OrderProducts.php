@@ -2,13 +2,19 @@
 
 namespace App\Http\Livewire\Client\Order;
 
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\orderItems;
+use App\Models\Product;
 use Livewire\Component;
+
+use function PHPUnit\Framework\isEmpty;
 
 class OrderProducts extends Component
 {
     public $client;
 
-    public array $quantity = [];
+    // public array $quantity = [];
 
 
     protected $listeners = ['addProduct' => '$refresh'];
@@ -65,6 +71,37 @@ class OrderProducts extends Component
                 'value' => $this->quantity,
             ]
         ]);
+    }
+
+    public function save()
+    {
+        $items = \Cart::session($this->client->id)->getContent();
+
+        // if (isEmpty($items)) {
+        //     dd($items);
+        // }
+
+        $order = Order::create([
+            'client_id' => $this->client->id,
+            'total_price' => \Cart::getTotal(),
+        ]);
+
+        foreach ($items as $item) {
+
+            OrderItem::create([
+                'product_id' => $item->id,
+                'order_id' => $order->id,
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+            ]);
+
+            Product::find($item->id)->decrement('stock', $item->quantity);
+        }
+
+        \Cart::session($this->client->id)->clear();
+        $this->reset('client');
+
+        return redirect()->route('orders.index')->with('message', 'Add Order Successfully');
     }
 
 

@@ -13,10 +13,15 @@ class Product extends Model
 
     protected $appends = ['profit_percent'];
 
-    public function Category()
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
+    // public function orderItem()
+    // {
+    //     return $this->belongsTo(OrderItem::class);
+    // }
 
     public function getProfitPercentAttribute()
     {

@@ -1,10 +1,4 @@
 <div>
-    @if ($message = Session::get('message'))
-    <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
-    </div>
-    @endif
     {{-- <div class="row">
         <div class="col-md-6">
             <input type="search" wire:model="search" class="form-control" placeholder="Search" />
@@ -21,9 +15,11 @@
     <div class="card card-primary card-outline">
         <div class="card-header">
             <div class="card-tools">
-                <a href="{{ route('users.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"> </i> Add User
-                </a>
+                @can('users-create')
+                    <a href="{{ route('users.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"> </i> Add User
+                    </a>
+                @endcan
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -83,11 +79,15 @@
                         </td>
                         <td class="">
                             <div class="btn-group">
+                                @can('users-update') 
                                     <a href="{{ route('users.edit', $user) }}" class="btn btn-primary"><i
                                         class="fas fa-pencil-alt"></i></a>
+                                @endcan
+                                @can('users-delete')
                                     <button type="button" class="btn btn-danger btndelete" wire:click.prevent="setAtt('{{ $user->id }}', '{{$user->first_name}}')" data-toggle="modal" data-target="#delete">
                                         <i class="fas fa-trash"></i>
                                     </button>
+                                @endcan
                             </div>
                         </td>
                     </tr>

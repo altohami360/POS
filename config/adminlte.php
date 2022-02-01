@@ -248,25 +248,35 @@ return [
         ],
         [
             'text'        => 'Users',
-            'url'         => 'users',
+            'route'       => 'users.index',
             'icon'        => 'nav-icon fas fa-users',
+            'can'        => 'users-read',
         ],
         [
             'text'        => 'Catogries',
-            'url'         => 'categories',
+            'route'       => 'categories.index',
             'icon'        => 'nav-icon fas fa-list-alt',
+            'can'        => 'categories-read',
         ],
         [
             'text'        => 'Products',
-            'url'         => 'products',
+            'route'       => 'products.index',
             'icon'        => 'nav-icon fas fa-list-alt',
+            'can'        => 'products-read',
         ],
         [
-            'text'        => 'clients',
-            'url'         => 'clients',
+            'text'        => 'Clients',
+            'route'       => 'clients.index',
             'icon'        => 'nav-icon fas fa-list-alt',
-        ],
+            'can'        => 'clients-read',
 
+        ],
+        [
+            'text'        => 'Orders',
+            'route'       => 'orders.index',
+            'icon'        => 'nav-icon fas fa-list-alt',
+            'can'        => 'orders-read',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
