@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ClientController extends Controller
 {
@@ -14,6 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
+        Gate::authorize('clients-read');
         return view('clients.index');
     }
 
@@ -24,6 +26,8 @@ class ClientController extends Controller
      */
     public function create()
     {
+        Gate::authorize('clients-create');
+
         return view('clients.create');
     }
 
@@ -68,6 +72,8 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        Gate::authorize('clients-update');
+
         return view('clients.edit', compact('client'));
     }
 

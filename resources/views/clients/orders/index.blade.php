@@ -60,13 +60,17 @@
                 </td>
                 <td class="">
                   <div class="btn-group">
-
+                    
                     @livewire('client.order.btn-show-products-order', ['order_id' => $order->id], key($order->id))
-
-                    <a class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
-                    <button type="button" class="btn btn-danger">
-                      <i class="fas fa-trash"></i>
-                    </button>
+                    
+                    @can('orders-update')
+                      <a class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>  
+                    @endcan
+                    @can('orders-delete')
+                      <button type="button" class="btn btn-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    @endcan
                   </div>
                 </td>
               </tr>

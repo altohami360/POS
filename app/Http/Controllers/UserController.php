@@ -18,6 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        Gate::authorize('users-read');
         return view('users.index');
     }
 
@@ -28,6 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        Gate::authorize('users-create');
+
         $modals = ['users', 'categories', 'products', 'clients', 'orders'];
         $maps = ['create', 'read', 'update', 'delete'];
 
@@ -88,6 +91,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Gate::authorize('users-update');
+
         $modals = ['users', 'categories', 'products', 'clients', 'orders'];
         $maps = ['create', 'read', 'update', 'delete'];
 

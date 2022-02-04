@@ -2,9 +2,12 @@
     <div class="card card-primary card-outline">
         <div class="card-header">
             <div class="card-tools">
-                <a href="{{ route('products.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"> </i> Add Product
-                </a>
+                @can('products-create')
+                    <a href="{{ route('products.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"> </i> Add Product
+                    </a>
+                @endcan
+                
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -98,17 +101,19 @@
                         <td class="">
                             <div class="btn-group">
                                 {{-- Edit button --}}
-                                <a 
-                                    href="{{ route('products.edit', $product->id) }}"  
-                                    class="btn btn-primary">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
+                                @can('products-update')
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                @endcan
                                 {{-- Delete Button --}}
-                                <button 
-                                    wire:click.prevent="setAtt('{{ $product->id }}', '{{$product->name}}')" 
-                                    data-toggle="modal" data-target="#delete" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                @can('products-delete')
+                                    <button 
+                                        wire:click.prevent="setAtt('{{ $product->id }}', '{{$product->name}}')" 
+                                        data-toggle="modal" data-target="#delete" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @endcan
 
                             </div>
                         </td>

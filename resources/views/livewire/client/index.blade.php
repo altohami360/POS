@@ -2,9 +2,11 @@
     <div class="card card-primary card-outline">
         <div class="card-header">
             <div class="card-tools">
-                <a href="{{ route('clients.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"> </i> Add Client
-                </a>
+                @can('clients-create')
+                    <a href="{{ route('clients.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"> </i> Add Client
+                    </a>
+                @endcan
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -67,14 +69,18 @@
                         <td class="">
                             <div class="btn-group">
                                 {{-- Edit button --}}
-                                <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary">
-                                    <i class="fas fa-pencil-alt"></i>
-                                </a>
+                                @can('clients-update')
+                                    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                @endcan
                                 {{-- Delete Button --}}
-                                <button wire:click.prevent="setAtt('{{ $client->id }}', '{{$client->name}}')"
-                                    data-toggle="modal" data-target="#delete" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                @can('clients-delete')
+                                    <button wire:click.prevent="setAtt('{{ $client->id }}', '{{$client->name}}')" data-toggle="modal" data-target="#delete"
+                                        class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @endcan
     
                             </div>
                         </td>

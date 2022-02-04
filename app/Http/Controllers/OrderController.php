@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -18,6 +19,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        Gate::authorize('orders-read');
+
         $orders = Order::all();
         $order_items = OrderItem::all();
         return view('clients.orders.index', compact('orders', 'order_items'));
@@ -30,6 +33,8 @@ class OrderController extends Controller
      */
     public function create(Client $client)
     {
+        Gate::authorize('clients-create');
+
         return view('clients.orders.create', compact('client'));
     }
 

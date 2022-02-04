@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -15,6 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+
+        Gate::authorize('products-read');
+
         return view('products.index');
     }
 
@@ -25,6 +29,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        Gate::authorize('poducts-create');
+
         $categories = Category::all();
         return view('products.create', compact('categories'));
     }
@@ -54,7 +60,7 @@ class ProductController extends Controller
             $image = $request->file('image')->store('images/products', 'public');
             $request_data['image'] =  $image;
         }
-        
+
         Product::create($request_data);
         return redirect()->route('products.index')->with('message', 'Add Product Successfully');
     }
@@ -78,6 +84,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('products-update');
+
         $product = Product::findOrFail($id);
         $categories = Category::all();
         return view('products.edit', compact('product', 'categories'));

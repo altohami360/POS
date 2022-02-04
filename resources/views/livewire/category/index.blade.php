@@ -56,8 +56,12 @@
                                 </td>
                                 <td class="">
                                     <div class="btn-group">
-                                        <button wire:click.prevent="edit('{{ $category->id }}', '{{$category->name}}')" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                                        <button wire:click.prevent="setAtt('{{ $category->id }}', '{{$category->name}}')" data-toggle="modal" data-target="#delete" class="btn btn-danger"><i class="fas fa-trash" ></i></button>
+                                        @can('categories-update')
+                                            <button wire:click.prevent="edit('{{ $category->id }}', '{{$category->name}}')" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                        @endcan
+                                        @can('categories-delete')
+                                            <button wire:click.prevent="setAtt('{{ $category->id }}', '{{$category->name}}')" data-toggle="modal" data-target="#delete" class="btn btn-danger"><i class="fas fa-trash" ></i></button>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
@@ -69,35 +73,37 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card card-primary card-outline">
-                <div class="card-header">
-                    <h4>Add Catogry</h4>
-                </div>
-                <div class="card-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+        @can('categories-create')
+            <div class="col-md-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h4>Add Catogry</h4>
                     </div>
-                    @endif
-                    <div class="form-group">
-                        <label for="exampleInput1">Catory Name</label>
-                        <input type="text" wire:model="name" class="form-control">
+                    <div class="card-body">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                        <div class="form-group">
+                            <label for="exampleInput1">Catory Name</label>
+                            <input type="text" wire:model="name" class="form-control">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                            <label class="form-check-label" for="exampleCheck1">Active</label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
-                        <label class="form-check-label" for="exampleCheck1">Active</label>
+                    <div class="card-footer">
+                        <button wire:click="store" class="btn btn-primary">Save</button>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button wire:click="store" class="btn btn-primary">Save</button>
                 </div>
             </div>
-        </div>
+        @endcan
     </div>
     
     {{-- <div wire:ignore.self class="modal fade show" id="modal-add" aria-modal="true" role="dialog">
